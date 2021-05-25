@@ -1,7 +1,1 @@
-[
-  {
-    "id": 1,
-    "title": "Test Title",
-    "text": "Test text"
-  }
-]
+[{"title":"ToDo:","text":"1. Laundry\n2. Dishes\n3. Make dinner\n4. Homework","id":1},{"title":"Favorite Recipes","text":"Belgian waffles\nspaghetti\nBBQ\nCarne asada","id":2}]

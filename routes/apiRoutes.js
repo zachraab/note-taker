@@ -6,23 +6,20 @@ module.exports = (app) => {
   // link to front end
   //rec params method and string
   app.get("/api/notes", (req, res) => {
-    const test = fs.readFile(
-      path.join(__dirname, "../db/db.json"),
-      "utf8",
-      (err, data) => {
-        if (err) throw err;
-        //send array response to front-end
-        res.json(JSON.parse(data));
-      }
-    );
-
-    console.log(test);
+    fs.readFile(path.join(__dirname, "../db/db.json"), "utf8", (err, data) => {
+      if (err) throw err;
+      //send array response to front-end
+      res.json(JSON.parse(data));
+    });
   });
 
   app.post("/api/notes", (req, res) => {
-    // copy code
     // assign variable to array in db.json
-    const newNote = req.body;
+    const newNote = {
+      title: req.body.title,
+      text: req.body.text,
+      id: db.length + 1,
+    };
     //take req.body and add to variable array of notes on db.json
     // fs.writeFile db.json and pass new array
 
@@ -30,19 +27,31 @@ module.exports = (app) => {
 
     console.log(db);
 
-    fs.writeFile(db, JSON.parse(newNote), (err) => {
-      if (err) throw err;
-      //send array response to front-end
-      res.json(JSON.parse(data));
-    });
+    fs.writeFile(
+      path.join(__dirname, "../db/db.json"),
+      JSON.stringify(db),
+      (err, data) => {
+        if (err) throw err;
+        //send array response to front-end
+        res.json(data);
+      }
+    );
 
     res.json(newNote);
   });
 
   app.delete("/api/notes/:id", (req, res) => {
-    db.filter(req.params.id);
-    // assign array to variable
+    const id = Number(req.params.id);
     // filter out deleted items
-    console.log(req.params.id);
+    const newDB = db.filter((db) => db.id != id);
+    fs.writeFile(
+      path.join(__dirname, "../db/db.json"),
+      JSON.stringify(newDB),
+      (err, data) => {
+        if (err) throw err;
+        //send array response to front-end
+        res.json(console.log(`Deleted item ${id}`));
+      }
+    );
   });
 };

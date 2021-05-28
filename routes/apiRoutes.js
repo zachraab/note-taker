@@ -50,7 +50,8 @@ module.exports = (app) => {
       (err, data) => {
         if (err) throw err;
         //send array response to front-end
-        res.json(console.log(`Deleted item ${id}`));
+        console.log(`Deleted item ${id}`);
+        res.json(true);
       }
     );
   });
